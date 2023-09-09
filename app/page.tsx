@@ -1,12 +1,11 @@
 'use client'
 
-import { useColorMode } from '@chakra-ui/react'
+import { Box, Text } from '@chakra-ui/react'
 
-export default function Home() {
-  const { toggleColorMode } = useColorMode()
+export default async function Home() {
   return (
-    <button type="button" onClick={toggleColorMode}>
-      Toggle color
-    </button>
+    <Box>
+      <Text size="lg">Welcome to Sclipper's automation Dashboard</Text>
+    </Box>
   )
 }
