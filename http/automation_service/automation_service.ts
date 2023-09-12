@@ -1,19 +1,24 @@
-import { apiUrl } from '@/config'
+'use client'
+
+import { apiAccessKey, apiUrl } from '@/config'
 
 type AutomationService = {
   url: string
   method: string
   data?: Object
 }
-
+// You may need to reserach how to makre reqests in next
 const automationService = ({ url, method, data }: AutomationService) =>
-  fetch(url, {
+  fetch(`${apiUrl}/${url}`, {
     method,
     body: JSON.stringify(data),
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiUrl}`,
+      Authorization: `Bearer ${apiAccessKey}`,
     },
-  }).then((res) => res.json())
+  }).then((res) => {
+    console.log('res', res)
+    return res.json()
+  })
 
 export default automationService

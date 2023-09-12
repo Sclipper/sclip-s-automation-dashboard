@@ -1,11 +1,28 @@
 'use client'
 
-import { Box, Text } from '@chakra-ui/react'
+import { Box, useColorMode } from '@chakra-ui/react'
+import { useRouter } from 'next/navigation'
+import { MdOutlineMarkEmailRead } from 'react-icons/md'
+import AutomationButton from '@/components/ui/AutomationButton'
 
-export default async function Home() {
+export default function Home() {
+  const { setColorMode } = useColorMode()
+  setColorMode('dark')
+  const router = useRouter()
+
   return (
-    <Box>
-      <Text size="lg">Welcome to Sclipper's automation Dashboard</Text>
+    <Box
+      sx={{
+        display: 'inline-flex',
+        pl: 10,
+        gap: 5,
+      }}
+    >
+      <AutomationButton
+        onClick={() => router.push('/email_automations')}
+        title="Email Automation"
+        icon={MdOutlineMarkEmailRead}
+      />
     </Box>
   )
 }
