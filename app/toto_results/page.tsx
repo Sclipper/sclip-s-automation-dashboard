@@ -30,9 +30,7 @@ const groupData = (years: number[]) => {
 function TotoResultsPage() {
   const [year, setYear] = React.useState([2023])
   const data = countNumbersInDataset(groupData(year))
-  console.log('data', data)
   const formattedData = formatCounts(data)
-  console.log('formattedData', formattedData)
 
   return (
     <Box sx={{ width: '100vw', height: '25rem' }}>
