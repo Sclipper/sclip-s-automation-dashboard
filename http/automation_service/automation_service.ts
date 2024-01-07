@@ -16,9 +16,6 @@ const automationService = ({ url, method, data }: AutomationService) =>
       'Content-Type': 'application/json',
       Authorization: `Bearer ${apiAccessKey}`,
     },
-  }).then((res) => {
-    console.log('res', res)
-    return res.json()
-  })
+  }).then((res) => res.json())
 
 export default automationService
