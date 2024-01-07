@@ -1,7 +1,7 @@
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 export function countNumbersInDataset(dataset: number[][]): Record<number, number> {
-  function* flatten(array: number[][]): Generator<number, void, unknown> {
+  function* flatten(array: number[][]): Generator<number, void, undefined> {
     for (const subarray of array) {
       yield* subarray
     }
