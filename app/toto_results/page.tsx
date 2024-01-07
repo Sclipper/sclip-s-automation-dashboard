@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-syntax */
+
 'use client'
 
 import * as React from 'react'
@@ -20,7 +22,7 @@ import { countNumbersInDataset, formatCounts } from './TotoResults.controller'
 const groupData = (years: number[]) => {
   const data = []
   for (const year of years) {
-    data.push(...results[year])
+    data.push(...results[year as keyof typeof results])
   }
   return data
 }

@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 export function countNumbersInDataset(dataset: number[][]): Record<number, number> {
   function* flatten(array: number[][]): Generator<number, void, unknown> {
@@ -17,8 +18,8 @@ export function countNumbersInDataset(dataset: number[][]): Record<number, numbe
 
 export function formatCounts(
   dataCounts: Record<number, number>
-): { name: string; times: number }[] {
-  const formattedData: { name: string; times: number }[] = []
+): { name: string; 'Изтеглено пъти': number }[] {
+  const formattedData: { name: string; 'Изтеглено пъти': number }[] = []
 
   for (const number in dataCounts) {
     formattedData.push({
