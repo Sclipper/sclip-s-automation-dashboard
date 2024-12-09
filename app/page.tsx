@@ -5,11 +5,11 @@ import { MdOutlineMarkEmailRead } from 'react-icons/md'
 import { SiMinutemailer } from 'react-icons/si'
 
 import AutomationButton from '@/components/ui/AutomationButton'
-import { Box, useColorMode } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 
 export default function Home() {
-  const { setColorMode } = useColorMode()
-  setColorMode('dark')
+  // const { setColorMode } = useColorMode()
+  // setColorMode('dark')
   const router = useRouter()
 
   return (

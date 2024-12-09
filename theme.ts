@@ -1,3 +1,5 @@
+'use client'
+
 // 1. Import the extendTheme function
 import { ChakraProps, extendTheme, type ThemeConfig } from '@chakra-ui/react'
 import { mode } from '@chakra-ui/theme-tools'
