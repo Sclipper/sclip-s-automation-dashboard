@@ -13,7 +13,6 @@ import {
   useToast,
   SimpleGrid,
 } from '@chakra-ui/react'
-import Papa from 'papaparse' // If you need CSV parsing.
 import { kosmoLabsApi } from '@/config'
 
 interface Receiver {
@@ -30,14 +29,15 @@ export default function SendEmailsPage() {
   )
   const [receiverListJSON, setReceiverListJSON] = useState('')
 
-  // Alternatively, if you want to use CSV uploading:
-  // const [csvFile, setCsvFile] = useState<File | null>(null)
+  // New fields for username & password authentication
+  const [username, setUsername] = useState('')
+  const [authPassword, setAuthPassword] = useState('')
 
   const [responseData, setResponseData] = useState<any>(null)
+  const [loading, setLoading] = useState(false)
   const toast = useToast()
 
   const handleSubmit = async () => {
-    // Parse the receiverList from JSON or CSV
     let receiverList: Receiver[] = []
     if (receiverListJSON.trim()) {
       try {
@@ -76,8 +76,11 @@ export default function SendEmailsPage() {
         html,
       },
       receiverList,
+      username,
+      authPassword,
     }
 
+    setLoading(true)
     try {
       const res = await fetch(`${kosmoLabsApi}/email/group_email`, {
         method: 'POST',
@@ -114,37 +117,36 @@ export default function SendEmailsPage() {
         duration: 5000,
         isClosable: true,
       })
+    } finally {
+      setLoading(false)
     }
-  }
-
-  // If you choose to use CSV upload, this function parses the CSV and sets receiverListJSON
-  const handleCSVUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    Papa.parse(file, {
-      header: true,
-      complete: (results) => {
-        // results.data should be an array of objects
-        const parsedData = results.data as Receiver[]
-        // Convert to JSON and set in the textarea
-        setReceiverListJSON(JSON.stringify(parsedData, null, 2))
-      },
-      error: (err) => {
-        toast({
-          title: 'CSV Error',
-          description: err.message,
-          status: 'error',
-          duration: 5000,
-          isClosable: true,
-        })
-      },
-    })
   }
 
   return (
     <Box maxW="800px" mx="auto" p={4}>
       <Heading mb={6}>Send Bulk Emails</Heading>
+      {/* New Username and Password Fields for Authentication */}
 
+      <SimpleGrid columns={[1, 2]} spacing={6} mb={6}>
+        <FormControl>
+          <FormLabel>Username</FormLabel>
+          <Input
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Enter your username"
+          />
+        </FormControl>
+
+        <FormControl>
+          <FormLabel>Auth Password</FormLabel>
+          <Input
+            type="password"
+            value={authPassword}
+            onChange={(e) => setAuthPassword(e.target.value)}
+            placeholder="••••••••"
+          />
+        </FormControl>
+      </SimpleGrid>
       <SimpleGrid columns={[1, 2]} spacing={6} mb={6}>
         <FormControl>
           <FormLabel>Sender Email</FormLabel>
@@ -185,7 +187,6 @@ export default function SendEmailsPage() {
         />
       </FormControl>
 
-      {/* Option 1: Paste JSON directly */}
       <FormControl mb={6}>
         <FormLabel>Receiver List JSON</FormLabel>
         <Textarea
@@ -196,14 +197,7 @@ export default function SendEmailsPage() {
         />
       </FormControl>
 
-      <FormControl mb={6}>
-        <FormLabel>
-          Upload CSV (with columns like email, firstName, companyName)
-        </FormLabel>
-        <Input type="file" accept=".csv" onChange={handleCSVUpload} />
-      </FormControl>
-
-      <Button colorScheme="teal" onClick={handleSubmit}>
+      <Button colorScheme="teal" onClick={handleSubmit} isLoading={loading}>
         Send Emails
       </Button>
 
