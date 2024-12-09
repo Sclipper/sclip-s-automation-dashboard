@@ -1,9 +1,11 @@
 'use client'
 
-import { Box, useColorMode } from '@chakra-ui/react'
 import { useRouter } from 'next/navigation'
 import { MdOutlineMarkEmailRead } from 'react-icons/md'
+import { SiMinutemailer } from 'react-icons/si'
+
 import AutomationButton from '@/components/ui/AutomationButton'
+import { Box, useColorMode } from '@chakra-ui/react'
 
 export default function Home() {
   const { setColorMode } = useColorMode()
@@ -22,6 +24,11 @@ export default function Home() {
         onClick={() => router.push('/email_automations')}
         title="Email Automation"
         icon={MdOutlineMarkEmailRead}
+      />
+      <AutomationButton
+        onClick={() => router.push('/bulk_emails')}
+        title="Send Bulk Emails"
+        icon={SiMinutemailer}
       />
     </Box>
   )

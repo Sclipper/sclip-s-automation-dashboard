@@ -1,6 +1,6 @@
-/* eslint-disable no-restricted-syntax */
-
 'use client'
+
+/* eslint-disable no-restricted-syntax */
 
 import * as React from 'react'
 
