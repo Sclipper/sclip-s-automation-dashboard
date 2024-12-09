@@ -14,6 +14,7 @@ import {
   SimpleGrid,
 } from '@chakra-ui/react'
 import Papa from 'papaparse' // If you need CSV parsing.
+import { kosmoLabsApi } from '@/config'
 
 interface Receiver {
   email: string
@@ -78,8 +79,7 @@ export default function SendEmailsPage() {
     }
 
     try {
-      // const res = await fetch('https://api.kosmo-labs.com/email/group_email', {
-      const res = await fetch('http://localhost:8081/email/group_email', {
+      const res = await fetch(`${kosmoLabsApi}/email/group_email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
